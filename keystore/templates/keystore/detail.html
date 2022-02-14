@@ -1,0 +1,30 @@
+{% extends 'keystore/base.html' %}
+{% block content %}
+	<div class="row mb-3">
+		<div class="col"></div>
+		<div class="col-md-10 col-xl-9">
+			<div class="card mb-4 rounded-3 shadow-sm">
+				<div class="card-header py-3">
+					<h4 class="my-0 fw-normal text-primary">{{ credential.tag|title }}</h4>
+				</div>
+				<div class="card-body">
+					<h2 class="card-title text-secondary">{{ credential.username }}</h2>
+					<ul class="list-unstyled mt-3 mb-4">
+						<li>Password: <span class="font-monospace">[ENCRYPTED]</span></li>
+						<li>Added at: <span class="text-muted">{{ credential.date_added }}</span></li>
+						<li>Last Updated: <span class="text-muted">{{ credential.date_last_updated }}</span></li>
+						{% if credential.date_last_used_successfully %}
+							<li class="text.dark">Last Used Successfully: <span class="text-success">{{ credential.date_last_used_successfully }}</span></li>
+						{% else %}
+							<li class="text.dark">Last Used Successfully: <span class="text-danger">Never</span></li>
+						{% endif %}
+					</ul>
+					<a href="#" class="btn btn-lg btn-outline-info">Test Credentials</a>
+					<a href="{% url 'creds-edit' credential.pk %}" class="btn btn-lg btn-outline-primary">Update</a>
+					<a href="{% url 'creds-delete' credential.pk %}" class="btn btn-lg btn-danger float-end">Delete</a>
+				</div>
+			</div>
+		</div>
+		<div class="col"></div>
+	</div>
+{% endblock content %}

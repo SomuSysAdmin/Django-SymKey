@@ -1,0 +1,43 @@
+{% extends 'keystore/base.html' %}
+{% block content %}
+	<h1>List of your Credentials: </h1>
+	<div class="list-group">
+		{% if credential_list %}
+			{% for cred in credential_list %}
+				<a href="{% url 'creds-detail' cred.pk %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+					<i data-feather="key" style="width:48px; height:48px"></i>
+					<div class="d-flex gap-2 w-100 justify-content-between">
+						<div>
+							<h5 class="mb-0">{{ cred.tag|title }}</h5>
+							<small class="mb-0 opacity-75">{{ cred.username }}</small>
+						</div>
+						{% if cred.last_used_successfully %}
+							<small class="opacity-50 text-nowrap fw-light">Last Used: {{ cred.date_last_used_successfully }}</small>
+						{% else %}
+							<small class="opacity-50 text-nowrap fw-light">Never</small>
+						{% endif %}
+					</div>
+				</a>
+			{% endfor %}
+				<a href="{% url 'creds-add' %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+					<i data-feather="plus" style="width:48px; height:48px"></i>
+					<div class="d-flex gap-2 w-100 justify-content-between">
+						<div>
+							<h5 class="mb-0">New Credentials</h5>
+							<small class="mb-0 opacity-75 text-primary">Click here to insert a new credential</small>
+						</div>
+					</div>
+				</a>
+		{% else %}
+			<a href="{% url 'creds-add' %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+				<i data-feather="alert-triangle" style="width:48px; height:48px"></i>
+				<div class="d-flex gap-2 w-100 justify-content-between">
+					<div>
+						<h5 class="mb-0">Your Keychain is empty!</h5>
+						<small class="mb-0 opacity-75 text-primary">Click here to insert a new credential</small>
+					</div>
+				</div>
+			</a>
+		{% endif %}
+	</div>
+{% endblock content %}

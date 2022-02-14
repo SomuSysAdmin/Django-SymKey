@@ -1,0 +1,11 @@
+{% extends 'keystore/base.html' %}
+{% block content %}
+	<h1>Delete Credential? </h1>
+	<div class="list-group">
+		<form action="" method="post">{% csrf_token %}
+			<p>Are you sure you want to delete your credentials for <span class="text-danger fw-bold">{{ credential.tag|title }}</span>?</p>
+			<a href="{% url 'creds-detail' credential.pk %}" class="btn btn-lg btn-primary w-100 mb-2">NO! Take me back!</a>
+			<input class="btn btn-lg btn-danger w-100" type="submit" value="Confirm">
+		</form>
+	</div>
+{% endblock content %}
